@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venkatesh Kolluri | Cybersecurity Analyst & Ethical Hacker Portfolio</title>
+    
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#030712',      // Deepest Black
+                            card: 'rgba(10, 15, 30, 0.75)', // Glassmorphism background
+                            panel: 'rgba(17, 24, 39, 0.9)',
+                            cyan: '#00f0ff',      // Futuristic Neon Cyan
+                            blue: '#3b82f6',      // Premium Cyber Blue
+                            green: '#00ff66',     // Defensive Operational Green
+                            magenta: '#ff0055',   // Alert/Offensive Red-Magenta
+                            gray: '#1f2937',
+                            lightGray: '#9ca3af',
+                            dimText: '#94a3b8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow-pulse': 'glow 2s infinite alternate'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 240, 255, 0.3);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 240, 255, 0.6);
+        }
+
+        /* Glassmorphism custom components */
+        .glass-card {
+            background: rgba(10, 15, 30, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 240, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.15);
+            transform: translateY(-4px);
+        }
+
+        /* Neon Glowing Utilities */
+        .neon-glow-cyan {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+        }
+        
+        .neon-text-cyan {
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+        }
+        
+        .neon-text-green {
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.6);
+        }
+
+        /* Custom cursor glowing tracker */
+        #cursor-glow {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.04) 0%, rgba(59, 130, 246, 0.01) 50%, transparent 100%);
+            pointer-events: none;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            mix-blend-mode: screen;
+            transition: width 0.3s, height 0.3s;
+        }
+
+        /* Background grid overlay */
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+        }
+
+        /* Cyberpunk style keyframes and animation declarations */
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(0, 240, 255, 0.8), 0 0 30px rgba(59, 130, 246, 0.6);
+            }
+        }
+
+        .cyber-scanner-line {
+            background: linear-gradient(to bottom, transparent, rgba(0, 240, 255, 0.4), transparent);
+            animation: scan 6s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+
+        /* Custom preloader styles */
+        .cyber-preloader {
+            transition: opacity 0.8s ease-out, visibility 0.8s;
+        }
+
+        /* Terminal styling additions */
+        .terminal-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .terminal-scroll::-webkit-scrollbar-thumb {
+            background: rgba(0, 240, 255, 0.2);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-cyber-dark text-gray-100 font-sans overflow-x-hidden selection:bg-cyber-cyan/30 selection:text-cyber-cyan">
+
+    <!-- Custom Cursor Glow Spotlight -->
+    <div id="cursor-glow" class="hidden md:block"></div>
+
+    <!-- Dynamic Cyber Preloader -->
+    <div id="preloader" class="fixed inset-0 z-50 bg-cyber-dark flex flex-col justify-center items-center font-mono">
+        <div class="max-w-md w-full px-6">
+            <div class="flex items-center space-x-2 text-cyber-cyan mb-3">
+                <i class="fa-solid fa-shield-halved animate-pulse"></i>
+                <span class="text-sm font-bold tracking-widest">VK-SEC SYSTEMS BOOT v3.12</span>
+            </div>
+            <div class="w-full bg-gray-900 h-[3px] rounded-full overflow-hidden relative">
+                <div id="preloader-bar" class="bg-cyber-cyan h-full w-0 transition-all duration-100 ease-out shadow-[0_0_10px_#00f0ff]"></div>
+            </div>
+            <div class="mt-4 text-xs text-cyber-dimText space-y-1 h-[60px] overflow-hidden" id="preloader-logs">
+                <p class="text-cyber-green">> Initializing decryption protocol...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Background Particles -->
+    <canvas id="canvas-particles" class="fixed inset-0 w-full h-full -z-10 opacity-70 pointer-events-none"></canvas>
+    
+    <!-- Grid pattern background overlay -->
+    <div class="fixed inset-0 bg-grid -z-20 pointer-events-none"></div>
+
+    <!-- Glassmorphism Futuristic Navigation Header -->
+    <header class="fixed top-0 left-0 w-full z-40 bg-cyber-dark/40 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo with Security Status Indicator -->
+            <a href="#hero" class="flex items-center space-x-3 group">
+                <div class="relative w-10 h-10 flex items-center justify-center rounded-lg border border-cyber-cyan/30 group-hover:border-cyber-cyan transition-colors bg-cyber-dark/50">
+                    <i class="fa-solid fa-shield-halved text-cyber-cyan text-lg transition-transform duration-300 group-hover:rotate-[360deg]"></i>
+                    <span class="absolute -bottom-1 -right-1 flex h-3.5 w-3.5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-green opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-cyber-green border-2 border-cyber-dark"></span>
+                    </span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-mono text-base font-bold tracking-wider text-white group-hover:text-cyber-cyan transition-colors">V. KOLLURI</span>
+                    <span class="font-mono text-[9px] text-cyber-green tracking-widest uppercase">SECURE NETWORK ENGAGED</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Menu -->
+            <nav class="hidden md:flex items-center space-x-8 font-mono text-xs tracking-wider">
+                <a href="#hero" class="nav-link text-cyber-cyan hover:text-cyber-cyan transition-colors flex items-center space-x-1.5 py-2 relative" data-sec="hero">
+                    <span class="text-cyber-cyan/40">01.</span><span>// HOME</span>
+                </a>
+                <a href="#about" class="nav-link text-cyber-dimText hover:text-cyber-cyan transition-colors flex items-center space-x-1.5 py-2 relative" data-sec="about">
+                    <span class="text-cyber-cyan/40">02.</span><span>// PROFILE</span>
+                </a>
+                <a href="#skills" class="nav-link text-cyber-dimText hover:text-cyber-cyan transition-colors flex items-center space-x-1.5 py-2 relative" data-sec="skills">
+                    <span class="text-cyber-cyan/40">03.</span><span>// ARSENAL</span>
+                </a>
+                <a href="#projects" class="nav-link text-cyber-dimText hover:text-cyber-cyan transition-colors flex items-center space-x-1.5 py-2 relative" data-sec="projects">
+                    <span class="text-cyber-cyan/40">04.</span><span>// MISSIONS</span>
+                </a>
+                <a href="#education" class="nav-link text-cyber-dimText hover:text-cyber-cyan transition-colors flex items-center space-x-1.5 py-2 relative" data-sec="education">
+                    <span class="text-cyber-cyan/40">05.</span><span>// TIMELINE</span>
+                </a>
+                <a href="#contact" class="nav-link text-cyber-dimText hover:text-cyber-cyan transition-colors flex items-center space-x-1.5 py-2 relative" data-sec="contact">
+                    <span class="text-cyber-cyan/40">06.</span><span>// ACCESS</span>
+                </a>
+            </nav>
+
+            <!-- Live Status Action Indicator -->
+            <div class="hidden lg:flex items-center space-x-4">
+                <a href="#contact" class="px-5 py-2 rounded-md font-mono text-xs tracking-wider border border-cyber-cyan/30 text-cyber-cyan hover:bg-cyber-cyan/10 hover:border-cyber-cyan hover:shadow-[0_0_15px_rgba(0,240,255,0.2)] transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-bolt animate-pulse"></i>
+                    <span>DEPLOY ENGAGEMENT</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-cyber-dimText hover:text-cyber-cyan focus:outline-none p-2 rounded border border-white/5 hover:border-cyber-cyan/30 transition-all">
+                    <i class="fa-solid fa-bars-staggered text-xl" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dynamic Drawer Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-cyber-dark/95 border-b border-cyber-cyan/10 py-6 px-6 font-mono text-xs tracking-wider backdrop-blur-xl">
+            <div class="flex flex-col space-y-4">
+                <a href="#hero" class="mobile-nav-link text-cyber-cyan flex items-center space-x-2" onclick="toggleMenu()">
+                    <span class="text-cyber-cyan/40">01.</span><span>// HOME</span>
+                </a>
+                <a href="#about" class="mobile-nav-link text-cyber-dimText flex items-center space-x-2" onclick="toggleMenu()">
+                    <span class="text-cyber-cyan/40">02.</span><span>// PROFILE</span>
+                </a>
+                <a href="#skills" class="mobile-nav-link text-cyber-dimText flex items-center space-x-2" onclick="toggleMenu()">
+                    <span class="text-cyber-cyan/40">03.</span><span>// ARSENAL</span>
+                </a>
+                <a href="#projects" class="mobile-nav-link text-cyber-dimText flex items-center space-x-2" onclick="toggleMenu()">
+                    <span class="text-cyber-cyan/40">04.</span><span>// MISSIONS</span>
+                </a>
+                <a href="#education" class="mobile-nav-link text-cyber-dimText flex items-center space-x-2" onclick="toggleMenu()">
+                    <span class="text-cyber-cyan/40">05.</span><span>// TIMELINE</span>
+                </a>
+                <a href="#contact" class="mobile-nav-link text-cyber-dimText flex items-center space-x-2" onclick="toggleMenu()">
+                    <span class="text-cyber-cyan/40">06.</span><span>// ACCESS</span>
+                </a>
+                <div class="pt-4 border-t border-white/5 flex flex-col space-y-3">
+                    <div class="flex items-center space-x-2 text-xs text-cyber-dimText">
+                        <span class="w-2 h-2 rounded-full bg-cyber-green inline-block"></span>
+                        <span>SOC STATUS: SCANNING</span>
+                    </div>
+                    <a href="mailto:venkateshkolluri012@gmail.com" class="w-full text-center py-2.5 rounded bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan font-bold block hover:bg-cyber-cyan/20 transition-all">
+                        <i class="fa-solid fa-envelope mr-1.5"></i> EMAIL INCIDENT
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section (Strategic Command Center) -->
+    <section id="hero" class="relative min-h-screen pt-28 pb-12 flex flex-col justify-center overflow-hidden">
+        <!-- Floating Cyber-Grid Grid Accent Background Layer -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden">
+            <div class="absolute -top-40 -right-40 w-96 h-96 bg-cyber-cyan/5 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 -left-40 w-96 h-96 bg-cyber-blue/5 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column - Dynamic Introduction Terminal Content -->
+                <div class="lg:col-span-7 flex flex-col space-y-6">
+                    <!-- Tech Tagline Status -->
+                    <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-cyber-cyan/5 border border-cyber-cyan/20 w-fit">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-cyan opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-cyber-cyan"></span>
+                        </span>
+                        <span class="font-mono text-xs uppercase tracking-widest text-cyber-cyan">Vulnerability Response Operations Center</span>
+                    </div>
+
+                    <!-- Welcome Heading -->
+                    <div class="space-y-1">
+                        <h2 class="font-mono text-lg text-cyber-green font-bold">// HELLO WORLD, I AM</h2>
+                        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white font-sans leading-none">
+                            Venkatesh <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-blue to-cyan-500 neon-text-cyan">Kolluri</span>
+                        </h1>
+                    </div>
+
+                    <!-- Cyber Role with Typewriter Effect -->
+                    <div class="font-mono text-lg sm:text-2xl text-cyber-dimText font-medium h-10 flex items-center">
+                        <span class="text-white font-bold mr-2">> I'm a </span>
+                        <span id="typing-text" class="text-cyber-cyan font-bold border-r-2 border-cyber-cyan animate-pulse-fast"></span>
+                    </div>
+
+                    <!-- Strategic Mission Statement -->
+                    <p class="text-base sm:text-lg text-cyber-dimText max-w-xl leading-relaxed">
+                        Defending Digital Systems Through Security, Detection & Innovation. Specializing in cyber defense tactics, real-world exploit simulations, and automated threat telemetry analysis.
+                    </p>
+
+                    <!-- Tactical Contact Details / Quick Badges -->
+                    <div class="flex flex-wrap gap-4 font-mono text-xs text-cyber-dimText">
+                        <div class="flex items-center space-x-1.5 bg-white/5 px-3 py-1 rounded border border-white/5">
+                            <i class="fa-solid fa-location-dot text-cyber-cyan"></i>
+                            <span>Hyderabad, India</span>
+                        </div>
+                        <div class="flex items-center space-x-1.5 bg-white/5 px-3 py-1 rounded border border-white/5">
+                            <i class="fa-solid fa-shield-halved text-cyber-green"></i>
+                            <span>Active SOC Analytics</span>
+                        </div>
+                    </div>
+
+                    <!-- Hero Call to Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <a href="#contact" class="px-8 py-4 rounded bg-gradient-to-r from-cyber-cyan to-cyber-blue text-cyber-dark font-bold tracking-wider uppercase text-sm shadow-[0_0_20px_rgba(0,240,255,0.4)] hover:shadow-[0_0_30px_rgba(0,240,255,0.6)] hover:scale-[1.02] active:scale-100 transition-all text-center flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-headset"></i>
+                            <span>INITIATE ENGAGEMENT</span>
+                        </a>
+                        <a href="#projects" class="px-8 py-4 rounded bg-cyber-dark/50 border border-cyber-cyan/30 text-cyber-cyan font-mono text-sm tracking-wider hover:bg-cyber-cyan/10 hover:border-cyber-cyan hover:shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:scale-[1.02] active:scale-100 transition-all text-center flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-terminal"></i>
+                            <span>VIEW COMPLETED MISSIONS</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick Download/Social Connections -->
+                    <div class="flex items-center space-x-5 pt-4 text-xl">
+                        <span class="font-mono text-xs text-cyber-dimText">// INTEL NETWORK:</span>
+                        <a href="https://www.linkedin.com/in/venkateshkolluri/" target="_blank" class="text-cyber-dimText hover:text-cyber-cyan hover:scale-125 transition-all" title="LinkedIn Interface">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:venkateshkolluri012@gmail.com" class="text-cyber-dimText hover:text-cyber-cyan hover:scale-125 transition-all" title="Secure Mail Gateway">
+                            <i class="fa-solid fa-envelope"></i>
+                        </a>
+                        <a href="tel:+917799403055" class="text-cyber-dimText hover:text-cyber-cyan hover:scale-125 transition-all" title="Secured Voice Comms">
+                            <i class="fa-solid fa-phone"></i>
+                        </a>
+                        <!-- Download Resume Button with customized event simulated download -->
+                        <button onclick="downloadResume()" class="ml-2 font-mono text-xs px-3 py-1 border border-cyber-green/30 text-cyber-green rounded hover:bg-cyber-green/10 hover:border-cyber-green transition-all flex items-center space-x-1.5">
+                            <i class="fa-solid fa-download animate-bounce"></i>
+                            <span>DOWNLOAD_RESUME.PDF</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Column - Interactive Security Operations Center Terminal Terminal Simulator -->
+                <div class="lg:col-span-5 w-full">
+                    <div class="w-full rounded-lg glass-card overflow-hidden border border-cyber-cyan/20 shadow-[0_15px_40px_rgba(0,0,0,0.6)]">
+                        <!-- Terminal Title Bar Header -->
+                        <div class="bg-gray-900 px-4 py-3 flex items-center justify-between border-b border-white/5 font-mono text-xs text-cyber-dimText select-none">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3.5 h-3.5 rounded-full bg-cyber-magenta/80 flex items-center justify-center text-[8px] text-white">●</span>
+                                <span class="w-3.5 h-3.5 rounded-full bg-yellow-500/80"></span>
+                                <span class="w-3.5 h-3.5 rounded-full bg-cyber-green/80"></span>
+                                <span class="pl-2 flex items-center gap-1.5"><i class="fa-solid fa-terminal text-[10px] text-cyber-cyan"></i> telemetry_agent.sh</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5 text-[9px] uppercase tracking-wider text-cyber-green">SSH COMPLIANT</span>
+                            </div>
+                        </div>
+
+                        <!-- Terminal Body Area Content -->
+                        <div class="p-5 font-mono text-xs text-cyber-dimText bg-cyber-dark/95 h-[340px] flex flex-col justify-between overflow-hidden relative">
+                            <!-- Matrix style scanner line overlay effect inside terminal -->
+                            <div class="absolute inset-0 w-full h-full cyber-scanner-line pointer-events-none opacity-5"></div>
+                            
+                            <div class="terminal-scroll overflow-y-auto space-y-2 h-[260px] pr-2" id="terminal-screen">
+                                <!-- Preloaded Boot Logs -->
+                                <p class="text-white/40">--- BOOT SEQUENCE COMPLETE ---</p>
+                                <p class="text-cyber-green">system_status: ACTIVE // telemetry_node: V_KOLLURI</p>
+                                <p class="text-cyber-dimText">Type <span class="text-cyber-cyan font-bold">"help"</span> to display authorized secure payloads.</p>
+                                <div id="terminal-history"></div>
+                            </div>
+
+                            <!-- Interactive Terminal Shell input block -->
+                            <div class="flex items-center space-x-2 pt-3 border-t border-white/5 bg-cyber-dark/95 relative z-10">
+                                <span class="text-cyber-green font-bold">user@v-kolluri:~$</span>
+                                <input type="text" id="terminal-input" class="bg-transparent border-none outline-none flex-grow text-cyber-cyan font-mono text-xs focus:ring-0 select-all" placeholder="Enter cyber execution command..." autocomplete="off">
+                                <button onclick="executeTerminalCommand()" class="text-cyber-cyan hover:text-white transition-colors p-1" title="Execute Payload">
+                                    <i class="fa-solid fa-circle-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Profiles & Security Metrics Counter Grid Section -->
+    <section id="about" class="py-24 relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Details Profile Grid -->
+                <div class="lg:col-span-6 flex flex-col space-y-6">
+                    <div class="space-y-2">
+                        <span class="font-mono text-xs text-cyber-cyan tracking-widest">// RECONNAISSANCE: PROFILE BRIEFING</span>
+                        <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">About Venkatesh Kolluri</h2>
+                    </div>
+                    
+                    <p class="text-cyber-dimText leading-relaxed">
+                        Dedicated cybersecurity professional with practical exposure to application security, ethical hacking, and SOC operations. Experienced in detecting vulnerabilities, conducting security assessments, and analyzing security incidents using modern security operation centers tools.
+                    </p>
+                    <p class="text-cyber-dimText leading-relaxed">
+                        Leveraging technologies like <strong class="text-cyber-cyan">Microsoft Defender XDR</strong> and <strong class="text-cyber-cyan">Microsoft Sentinel</strong>, I focus on threat hunting and constructing detection telemetry. I am deeply passionate about defense strategies, application security reviews, and identifying attack chains to protect critical corporate operations.
+                    </p>
+
+                    <!-- Tactical Contact Details Matrix -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                        <div class="p-4 rounded bg-white/5 border border-white/5 hover:border-cyber-cyan/20 transition-all flex items-start space-x-3">
+                            <div class="p-2.5 rounded bg-cyber-cyan/10 text-cyber-cyan"><i class="fa-solid fa-envelope"></i></div>
+                            <div>
+                                <span class="block text-xs font-mono text-cyber-dimText uppercase">EMAIL INTEL</span>
+                                <a href="mailto:venkateshkolluri012@gmail.com" class="text-sm font-bold text-white hover:text-cyber-cyan transition-colors">venkateshkolluri012@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="p-4 rounded bg-white/5 border border-white/5 hover:border-cyber-cyan/20 transition-all flex items-start space-x-3">
+                            <div class="p-2.5 rounded bg-cyber-green/10 text-cyber-green"><i class="fa-solid fa-phone"></i></div>
+                            <div>
+                                <span class="block text-xs font-mono text-cyber-dimText uppercase">SECURE PHONE</span>
+                                <a href="tel:+917799403055" class="text-sm font-bold text-white hover:text-cyber-cyan transition-colors">+91 7799403055</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right High-Visual Cyber Dashboard Panel and Stats -->
+                <div class="lg:col-span-6">
+                    <div class="relative rounded-lg overflow-hidden border border-cyber-cyan/20 glass-card p-6 md:p-8">
+                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-cyber-cyan/5 rounded-full blur-2xl"></div>
+                        
+                        <!-- Internal Status Display -->
+                        <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
+                            <div class="font-mono text-xs flex items-center space-x-2 text-cyber-cyan">
+                                <i class="fa-solid fa-gauge-high"></i>
+                                <span>SYSTEMS_TELEMETRY.LOG</span>
+                            </div>
+                            <span class="px-2 py-0.5 rounded bg-cyber-cyan/5 border border-cyber-cyan/20 text-[10px] text-cyber-cyan font-mono">REALTIME SECURE</span>
+                        </div>
+
+                        <!-- Statistics Counter Metrics Box Grid -->
+                        <div class="grid grid-cols-2 gap-6">
+                            
+                            <!-- Metric Box 1 -->
+                            <div class="p-5 rounded bg-cyber-dark/50 border border-white/5 hover:border-cyber-cyan/30 transition-all group flex flex-col justify-center items-center text-center">
+                                <div class="w-12 h-12 rounded-full bg-cyber-cyan/10 flex items-center justify-center text-cyber-cyan mb-3 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-folder-open text-xl"></i>
+                                </div>
+                                <span class="text-3xl font-bold text-white font-mono tracking-tight" id="counter-projects" data-target="15">0</span>
+                                <span class="text-xs text-cyber-dimText uppercase tracking-wider font-mono mt-1">Secured Assets Built</span>
+                            </div>
+
+                            <!-- Metric Box 2 -->
+                            <div class="p-5 rounded bg-cyber-dark/50 border border-white/5 hover:border-cyber-cyan/30 transition-all group flex flex-col justify-center items-center text-center">
+                                <div class="w-12 h-12 rounded-full bg-cyber-green/10 flex items-center justify-center text-cyber-green mb-3 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-crosshairs text-xl"></i>
+                                </div>
+                                <span class="text-3xl font-bold text-white font-mono tracking-tight" id="counter-vulnerabilities" data-target="45">0</span>
+                                <span class="text-xs text-cyber-dimText uppercase tracking-wider font-mono mt-1">Exploit Simulations</span>
+                            </div>
+
+                            <!-- Metric Box 3 -->
+                            <div class="p-5 rounded bg-cyber-dark/50 border border-white/5 hover:border-cyber-cyan/30 transition-all group flex flex-col justify-center items-center text-center">
+                                <div class="w-12 h-12 rounded-full bg-cyber-magenta/10 flex items-center justify-center text-cyber-magenta mb-3 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-bug text-xl"></i>
+                                </div>
+                                <span class="text-3xl font-bold text-white font-mono tracking-tight" id="counter-bugs" data-target="30">0</span>
+                                <span class="text-xs text-cyber-dimText uppercase tracking-wider font-mono mt-1">Vulns Documented</span>
+                            </div>
+
+                            <!-- Metric Box 4 -->
+                            <div class="p-5 rounded bg-cyber-dark/50 border border-white/5 hover:border-cyber-cyan/30 transition-all group flex flex-col justify-center items-center text-center">
+                                <div class="w-12 h-12 rounded-full bg-cyber-blue/10 flex items-center justify-center text-cyber-blue mb-3 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-clock text-xl"></i>
+                                </div>
+                                <span class="text-3xl font-bold text-white font-mono tracking-tight" id="counter-hours" data-target="200">0</span>
+                                <span class="text-xs text-cyber-dimText uppercase tracking-wider font-mono mt-1">Lab Sandboxing Hours</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Arsenal (Skills Category Matrix) Section -->
+    <section id="skills" class="py-24 relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="font-mono text-xs text-cyber-cyan tracking-widest uppercase">// CRITICAL SKILLS ACQUIRED</span>
+                <h2 class="text-3xl font-bold text-white sm:text-4xl">Security Technical Arsenal</h2>
+                <div class="h-[2px] w-20 bg-gradient-to-r from-transparent via-cyber-cyan to-transparent mx-auto"></div>
+                <p class="text-cyber-dimText">Categorized core capabilities, tools, and platforms utilized to maintain robust enterprise network defenses.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Skill Category Card 1: SOC Operations & Intelligence -->
+                <div class="glass-card p-6 rounded-lg relative overflow-hidden group">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 rounded bg-cyber-cyan/10 flex items-center justify-center text-cyber-cyan">
+                            <i class="fa-solid fa-eye-low-vision text-lg"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white font-mono">SOC & Threat Defense</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- Skill 1 -->
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1.5">
+                                <span class="text-white">SIEM & SOAR Integration</span>
+                                <span class="text-cyber-cyan">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-950 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-cyber-cyan h-full rounded-full transition-all duration-1000 w-[90%] group-hover:shadow-[0_0_8px_#00f0ff]"></div>
+                            </div>
+                        </div>
+                        <!-- Skill 2 -->
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1.5">
+                                <span class="text-white">Microsoft Sentinel Logs</span>
+                                <span class="text-cyber-cyan">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-950 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-cyber-cyan h-full rounded-full transition-all duration-1000 w-[85%] group-hover:shadow-[0_0_8px_#00f0ff]"></div>
+                            </div>
+                        </div>
+                        <!-- Skill 3 -->
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1.5">
+                                <span class="text-white">Kusto Query Language (KQL)</span>
+                                <span class="text-cyber-cyan">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-950 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-cyber-cyan h-full rounded-full transition-all duration-1000 w-[80%] group-hover:shadow-[0_0_8px_#00f0ff]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Category Card 2: Application Security & Pentesting -->
+                <div class="glass-card p-6 rounded-lg relative overflow-hidden group">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 rounded bg-cyber-magenta/10 flex items-center justify-center text-cyber-magenta">
+                            <i class="fa-solid fa-shield-halved text-lg"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white font-mono">Offensive Security</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- Skill 1 -->
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1.5">
+                                <span class="text-white">Vulnerability Management</span>
+                                <span class="text-cyber-magenta">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-950 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-cyber-magenta h-full rounded-full transition-all duration-1000 w-[85%] group-hover:shadow-[0_0_8px_#ff0055]"></div>
+                            </div>
+                        </div>
+                        <!-- Skill 2 -->
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1.5">
+                                <span class="text-white">Application Security Testing</span>
+                                <span class="text-cyber-magenta">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-950 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-cyber-magenta h-full rounded-full transition-all duration-1000 w-[80%] group-hover:shadow-[0_0_8px_#ff0055]"></div>
+                            </div>
+                        </div>
+                        <!-- Skill 3 -->
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1.5">
+                                <span class="text-white">Ethical Hacking & Exploit Setup</span>
+                                <span class="text-cyber-magenta">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-950 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-cyber-magenta h-full rounded-full transition-all duration-1000 w-[85%] group-hover:shadow-[0_0_8px_#ff0055]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Category Card 3: Frameworks, Systems & Security Utilities -->
+                <div class="glass-card p-6 rounded-lg relative overflow-hidden group">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 rounded bg-cyber-green/10 flex items-center justify-center text-cyber-green">
+                            <i class="fa-solid fa-screwdriver-wrench text-lg"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white font-mono">Infrastructure & Tools</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- Skill 1 -->
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1.5">
+                                <span class="text-white">Microsoft Defender XDR</span>
+                                <span class="text-cyber-green">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-950 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-cyber-green h-full rounded-full transition-all duration-1000 w-[90%] group-hover:shadow-[0_0_8px_#00ff66]"></div>
+                            </div>
+                        </div>
+                        <!-- Skill 2 -->
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1.5">
+                                <span class="text-white">Nmap & Port Diagnostics</span>
+                                <span class="text-cyber-green">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-950 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-cyber-green h-full rounded-full transition-all duration-1000 w-[85%] group-hover:shadow-[0_0_8px_#00ff66]"></div>
+                            </div>
+                        </div>
+                        <!-- Skill 3 -->
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1.5">
+                                <span class="text-white">Burp Suite Professional</span>
+                                <span class="text-cyber-green">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-950 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-cyber-green h-full rounded-full transition-all duration-1000 w-[80%] group-hover:shadow-[0_0_8px_#00ff66]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Integrated Visual Micro-Tools Cloud Tags Block -->
+            <div class="mt-12 p-6 rounded-lg bg-cyber-dark/40 border border-white/5 flex flex-wrap justify-center gap-3">
+                <span class="px-3 py-1.5 rounded bg-white/5 border border-white/5 text-xs font-mono text-cyber-dimText hover:border-cyber-cyan/30 hover:text-white transition-all cursor-default">VAPT</span>
+                <span class="px-3 py-1.5 rounded bg-white/5 border border-white/5 text-xs font-mono text-cyber-dimText hover:border-cyber-cyan/30 hover:text-white transition-all cursor-default">Threat Hunting</span>
+                <span class="px-3 py-1.5 rounded bg-white/5 border border-white/5 text-xs font-mono text-cyber-dimText hover:border-cyber-cyan/30 hover:text-white transition-all cursor-default">IDS/IPS Firewalls</span>
+                <span class="px-3 py-1.5 rounded bg-white/5 border border-white/5 text-xs font-mono text-cyber-dimText hover:border-cyber-cyan/30 hover:text-white transition-all cursor-default">Network Topologies Security</span>
+                <span class="px-3 py-1.5 rounded bg-white/5 border border-white/5 text-xs font-mono text-cyber-dimText hover:border-cyber-cyan/30 hover:text-white transition-all cursor-default">OWASP Top 10</span>
+                <span class="px-3 py-1.5 rounded bg-white/5 border border-white/5 text-xs font-mono text-cyber-dimText hover:border-cyber-cyan/30 hover:text-white transition-all cursor-default">SIEM Playbooks</span>
+                <span class="px-3 py-1.5 rounded bg-white/5 border border-white/5 text-xs font-mono text-cyber-dimText hover:border-cyber-cyan/30 hover:text-white transition-all cursor-default">Digital Forensics</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section (Operation Missions Room) -->
+    <section id="projects" class="py-24 relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="font-mono text-xs text-cyber-cyan tracking-widest uppercase">// EXECUTED OPERATIONS</span>
+                <h2 class="text-3xl font-bold text-white sm:text-4xl">Security Engagements & Lab Designs</h2>
+                <div class="h-[2px] w-20 bg-gradient-to-r from-transparent via-cyber-cyan to-transparent mx-auto"></div>
+                <p class="text-cyber-dimText">Detailed walkthrough of customized vulnerable environments designed for simulation, research, and analysis.</p>
+            </div>
+
+            <!-- Single Heroic Showcase Project Box for Full Stack Breach Lab -->
+            <div class="glass-card rounded-lg overflow-hidden border border-cyber-cyan/20 shadow-2xl transition-all">
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+                    
+                    <!-- Showcase Project Interactive Schematic Graph Cover Panel -->
+                    <div class="lg:col-span-5 relative bg-cyber-dark/80 min-h-[300px] flex flex-col justify-between p-8 border-b lg:border-b-0 lg:border-r border-white/10 overflow-hidden">
+                        <div class="absolute inset-0 pointer-events-none opacity-20 bg-grid"></div>
+                        <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-cyber-cyan/10 rounded-full blur-3xl"></div>
+                        
+                        <!-- Header telemetry stats of showcase project -->
+                        <div class="flex justify-between items-center relative z-10">
+                            <span class="px-3 py-1 rounded bg-cyber-magenta/10 border border-cyber-magenta/30 text-[10px] font-mono text-cyber-magenta tracking-widest uppercase font-bold animate-pulse">ACTIVE SIMULATOR</span>
+                            <span class="font-mono text-[10px] text-cyber-dimText">STATUS: PRODUCTION</span>
+                        </div>
+
+                        <!-- Graphic Visualization Node of the simulated attack path -->
+                        <div class="my-8 flex justify-center items-center relative z-10">
+                            <div class="relative w-48 h-48 border border-white/5 rounded-full flex items-center justify-center">
+                                <div class="absolute w-36 h-36 border border-cyber-cyan/20 rounded-full animate-spin duration-10000 flex items-center justify-center">
+                                    <span class="absolute top-0 w-2.5 h-2.5 bg-cyber-cyan rounded-full"></span>
+                                </div>
+                                <div class="absolute w-28 h-28 border border-cyber-green/20 rounded-full animate-reverse-spin flex items-center justify-center">
+                                    <span class="absolute bottom-0 w-2.5 h-2.5 bg-cyber-green rounded-full"></span>
+                                </div>
+                                <div class="w-16 h-16 rounded-full bg-cyber-cyan/10 border border-cyber-cyan/30 flex items-center justify-center text-cyber-cyan text-2xl shadow-[0_0_20px_rgba(0,240,255,0.2)]">
+                                    <i class="fa-solid fa-network-wired animate-pulse"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tags footer of the showcase project -->
+                        <div class="flex flex-wrap gap-2 relative z-10">
+                            <span class="px-2 py-1 bg-white/5 border border-white/5 rounded text-[10px] font-mono text-cyber-cyan">Full-Stack Lab</span>
+                            <span class="px-2 py-1 bg-white/5 border border-white/5 rounded text-[10px] font-mono text-cyber-green">Attacker Pathing</span>
+                            <span class="px-2 py-1 bg-white/5 border border-white/5 rounded text-[10px] font-mono text-cyber-magenta">CTF Flags</span>
+                        </div>
+                    </div>
+
+                    <!-- Project Contents Description Area -->
+                    <div class="lg:col-span-7 p-8 flex flex-col justify-between space-y-6">
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-2 text-cyber-cyan font-mono text-xs">
+                                <span>MISSION TARGET 01 //</span>
+                                <span class="text-white">RESEARCH ARCHIVE</span>
+                            </div>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Full Stack Breach Lab – Vulnerable Environment Design</h3>
+                            
+                            <p class="text-cyber-dimText leading-relaxed">
+                                A completely sandboxable environment developed specifically to mimic and research corporate lateral movement vectors and server-to-domain administrator privilege elevation vulnerabilities.
+                            </p>
+
+                            <!-- Key Structural Objectives -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 font-mono text-xs text-cyber-dimText">
+                                <div class="flex items-start space-x-2">
+                                    <i class="fa-solid fa-circle-chevron-right text-cyber-cyan mt-1"></i>
+                                    <span>Engineered deliberate vulnerable attack vector networks.</span>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <i class="fa-solid fa-circle-chevron-right text-cyber-cyan mt-1"></i>
+                                    <span>Structured complete multi-stage attack pathway telemetry.</span>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <i class="fa-solid fa-circle-chevron-right text-cyber-cyan mt-1"></i>
+                                    <span>Implemented jeopardy style CTF flag hunting markers.</span>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <i class="fa-solid fa-circle-chevron-right text-cyber-cyan mt-1"></i>
+                                    <span>Configured operational logging points for SOC analysis tracking.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mission Action Operations Bar -->
+                        <div class="flex items-center justify-between pt-6 border-t border-white/5">
+                            <div class="flex space-x-4 text-xs font-mono">
+                                <span class="text-cyber-cyan"><i class="fa-solid fa-code-fork mr-1"></i> GitHub Private</span>
+                                <span class="text-cyber-green"><i class="fa-solid fa-circle-check mr-1"></i> Ready Deploy</span>
+                            </div>
+                            <button onclick="simulateDeployLab()" class="px-5 py-2 rounded bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan font-mono text-xs hover:bg-cyber-cyan/20 hover:border-cyber-cyan transition-all flex items-center space-x-1.5">
+                                <i class="fa-solid fa-play"></i>
+                                <span>EXECUTE SIMULATOR</span>
+                            </button>
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Multi-State Secondary Simulated Project Cards (Vulnerabilities Tracker & Incident Response) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                
+                <!-- Project Card 2 -->
+                <div class="glass-card p-6 rounded-lg relative overflow-hidden group">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-[10px] font-mono text-cyber-cyan uppercase tracking-widest bg-cyber-cyan/5 px-2 py-1 rounded border border-cyber-cyan/20">SOC Analytics</span>
+                        <span class="text-cyber-dimText font-mono text-xs">MAY 2025</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2 group-hover:text-cyber-cyan transition-colors font-mono">Simulated Sentinel & Defender Playbook Integration</h4>
+                    <p class="text-sm text-cyber-dimText mb-4 leading-relaxed">
+                        Constructed automated hunting logic utilizing custom KQL queries in Microsoft Sentinel to detect privilege escalation events and process spawning anomalies.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-2 mb-4">
+                        <span class="px-2 py-0.5 bg-white/5 border border-white/5 rounded text-[10px] font-mono text-cyber-dimText">Microsoft Sentinel</span>
+                        <span class="px-2 py-0.5 bg-white/5 border border-white/5 rounded text-[10px] font-mono text-cyber-dimText">KQL</span>
+                        <span class="px-2 py-0.5 bg-white/5 border border-white/5 rounded text-[10px] font-mono text-cyber-dimText">SOAR Playbooks</span>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="glass-card p-6 rounded-lg relative overflow-hidden group">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-[10px] font-mono text-cyber-magenta uppercase tracking-widest bg-cyber-magenta/5 px-2 py-1 rounded border border-cyber-magenta/20">Web Security</span>
+                        <span class="text-cyber-dimText font-mono text-xs">OCT 2024</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2 group-hover:text-cyber-magenta transition-colors font-mono">Interactive OWASP Assessment Lab</h4>
+                    <p class="text-sm text-cyber-dimText mb-4 leading-relaxed">
+                        Organized a comprehensive assessment detailing critical flaws such as Broken Object Level Authorization (BOLA) and JWT signature bypass within proprietary microservice layers.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-2 mb-4">
+                        <span class="px-2 py-0.5 bg-white/5 border border-white/5 rounded text-[10px] font-mono text-cyber-dimText">Burp Suite</span>
+                        <span class="px-2 py-0.5 bg-white/5 border border-white/5 rounded text-[10px] font-mono text-cyber-dimText">BOLA Exploitation</span>
+                        <span class="px-2 py-0.5 bg-white/5 border border-white/5 rounded text-[10px] font-mono text-cyber-dimText">API Security</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Education Timeline (Training Matrix) Section -->
+    <section id="education" class="py-24 relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="font-mono text-xs text-cyber-cyan tracking-widest uppercase">// SECURE TRAINING & KNOWLEDGE BASES</span>
+                <h2 class="text-3xl font-bold text-white sm:text-4xl">Educational Chronology</h2>
+                <div class="h-[2px] w-20 bg-gradient-to-r from-transparent via-cyber-cyan to-transparent mx-auto"></div>
+                <p class="text-cyber-dimText">Chronological academic foundation driving systematic analytical approaches to cybersecurity engineering.</p>
+            </div>
+
+            <div class="relative max-w-4xl mx-auto">
+                <!-- Center Vertical Line -->
+                <div class="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyber-cyan via-cyber-blue to-transparent"></div>
+
+                <!-- Timeline Item 1: B.Tech -->
+                <div class="relative flex flex-col md:flex-row md:justify-between items-start md:items-center mb-12 group">
+                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-cyber-dark border-4 border-cyber-cyan shadow-[0_0_10px_#00f0ff] z-10"></div>
+                    
+                    <!-- Left Column Block spacer for medium layouts -->
+                    <div class="w-full md:w-[45%] pr-0 md:pr-8 pl-12 md:pl-0 text-left md:text-right flex flex-col md:items-end space-y-1">
+                        <span class="font-mono text-sm text-cyber-cyan font-bold">2021 - 2024</span>
+                        <h3 class="text-lg font-bold text-white">B.Tech - Electronics and Communication Engineering</h3>
+                        <p class="text-cyber-dimText text-sm">V.K.R, V.N.B & A.G.K College Of Engineering</p>
+                    </div>
+                    <!-- Right Spacer Block -->
+                    <div class="w-full md:w-[45%] pl-12 md:pl-8 pt-2 md:pt-0">
+                        <div class="p-5 rounded bg-white/5 border border-white/5 group-hover:border-cyber-cyan/20 transition-all font-sans text-xs text-cyber-dimText leading-relaxed">
+                            Acquired strong systems logic foundations, network communications architectures, data telemetry structures, and signal system protocols.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2: Diploma -->
+                <div class="relative flex flex-col md:flex-row md:justify-between items-start md:items-center mb-12 group">
+                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-cyber-dark border-4 border-cyber-blue shadow-[0_0_10px_#3b82f6] z-10"></div>
+                    
+                    <!-- Left Column Block spacer for medium layouts -->
+                    <div class="w-full md:w-[45%] pr-0 md:pr-8 pl-12 md:pl-0 md:order-2 text-left flex flex-col space-y-1">
+                        <span class="font-mono text-sm text-cyber-blue font-bold">2018 - 2021</span>
+                        <h3 class="text-lg font-bold text-white">Diploma - Electronics and Communication Engineering</h3>
+                        <p class="text-cyber-dimText text-sm">VKR & VNB Polytechnic College</p>
+                    </div>
+                    <!-- Right Spacer Block -->
+                    <div class="w-full md:w-[45%] pl-12 md:pl-0 pr-0 md:pr-8 pt-2 md:pt-0 md:order-1 text-left md:text-right">
+                        <div class="p-5 rounded bg-white/5 border border-white/5 group-hover:border-cyber-blue/20 transition-all font-sans text-xs text-cyber-dimText leading-relaxed">
+                            Developed strong underlying knowledge on microprocessors, embedded coding systems, local area network setups, and basic automation logic.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3: Secondary Education -->
+                <div class="relative flex flex-col md:flex-row md:justify-between items-start md:items-center mb-4 group">
+                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-cyber-dark border-4 border-cyber-cyan shadow-[0_0_10px_#00f0ff] z-10"></div>
+                    
+                    <!-- Left Column Block spacer for medium layouts -->
+                    <div class="w-full md:w-[45%] pr-0 md:pr-8 pl-12 md:pl-0 text-left md:text-right flex flex-col md:items-end space-y-1">
+                        <span class="font-mono text-sm text-cyber-cyan font-bold">2016 - 2018</span>
+                        <h3 class="text-lg font-bold text-white">Secondary School Certificate (SSC)</h3>
+                        <p class="text-cyber-dimText text-sm">St. Theresa's English Medium High School</p>
+                    </div>
+                    <!-- Right Spacer Block -->
+                    <div class="w-full md:w-[45%] pl-12 md:pl-8 pt-2 md:pt-0">
+                        <div class="p-5 rounded bg-white/5 border border-white/5 group-hover:border-cyber-cyan/20 transition-all font-sans text-xs text-cyber-dimText leading-relaxed">
+                            Established core analytic capacities, foundational algorithmic math principles, logic operations, and computational communication concepts.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Access Authorization Form Section -->
+    <section id="contact" class="py-24 relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Hand Connection Briefing info -->
+                <div class="lg:col-span-5 flex flex-col space-y-6">
+                    <div class="space-y-2">
+                        <span class="font-mono text-xs text-cyber-cyan tracking-widest uppercase">// SECURE LINKAGE GATEWAY</span>
+                        <h2 class="text-3xl font-bold text-white sm:text-4xl">Establish Secure Transmission</h2>
+                    </div>
+                    <p class="text-cyber-dimText leading-relaxed">
+                        To alert, establish collaborations, query incident responses or request resumes, broadcast a secure packet across my mail gateway. Authorized response queues are monitored constantly.
+                    </p>
+
+                    <div class="space-y-4 pt-4">
+                        <!-- Channel 1 -->
+                        <div class="flex items-center space-x-3.5">
+                            <div class="w-10 h-10 rounded-full bg-cyber-cyan/10 border border-cyber-cyan/20 flex items-center justify-center text-cyber-cyan">
+                                <i class="fa-solid fa-microchip"></i>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] font-mono text-cyber-dimText uppercase">SECURE PORT HOST</span>
+                                <span class="text-sm font-bold text-white">Hyderabad, India</span>
+                            </div>
+                        </div>
+                        <!-- Channel 2 -->
+                        <div class="flex items-center space-x-3.5">
+                            <div class="w-10 h-10 rounded-full bg-cyber-green/10 border border-cyber-green/20 flex items-center justify-center text-cyber-green">
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] font-mono text-cyber-dimText uppercase">INCIDENT VOICE RESPONDER</span>
+                                <span class="text-sm font-bold text-white">+91 7799403055</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Contact Submission Interface -->
+                <div class="lg:col-span-7">
+                    <div class="glass-card p-6 sm:p-8 rounded-lg border border-cyber-cyan/20 relative overflow-hidden">
+                        
+                        <!-- Internal loading / transmission overlay -->
+                        <div id="contact-loading-overlay" class="hidden absolute inset-0 bg-cyber-dark/95 z-30 flex flex-col justify-center items-center font-mono text-xs text-cyber-cyan">
+                            <i class="fa-solid fa-rotate-right animate-spin text-2xl mb-3"></i>
+                            <p id="transmission-log">> Encrypting message envelope...</p>
+                        </div>
+
+                        <!-- Success Submission Panel -->
+                        <div id="contact-success-overlay" class="hidden absolute inset-0 bg-cyber-dark/95 z-30 flex flex-col justify-center items-center text-center p-6 font-mono">
+                            <div class="w-16 h-16 rounded-full bg-cyber-green/10 border border-cyber-green text-cyber-green flex items-center justify-center text-2xl mb-4 animate-bounce">
+                                <i class="fa-solid fa-envelope-circle-check"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white uppercase mb-2">Transmission Acknowledged</h3>
+                            <p class="text-xs text-cyber-dimText max-w-sm mb-6">
+                                Your data packet has been successfully encrypted, routed, and committed to Venkatesh's incoming communication queue.
+                            </p>
+                            <button onclick="resetContactGateway()" class="px-4 py-2 border border-cyber-cyan/30 text-cyber-cyan text-xs rounded hover:bg-cyber-cyan/10 transition-all">
+                                RE-ESTABLISH CONTACT GATEWAY
+                            </button>
+                        </div>
+
+                        <!-- Header Form Title info -->
+                        <div class="flex items-center justify-between border-b border-white/5 pb-4 mb-6">
+                            <div class="flex items-center space-x-2 text-xs font-mono text-cyber-cyan">
+                                <i class="fa-solid fa-lock"></i>
+                                <span>SSL SECURED TRANSMISSION GATEWAY</span>
+                            </div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-cyber-green animate-pulse"></div>
+                        </div>
+
+                        <!-- Main Contact Form -->
+                        <form id="secure-contact-form" class="space-y-4" onsubmit="transmitPacket(event)">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="space-y-1.5">
+                                    <label class="block font-mono text-xs text-cyber-dimText uppercase">IDENT NAME / ENTITY</label>
+                                    <input type="text" id="sender-name" required class="w-full bg-cyber-dark/80 border border-white/10 rounded px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyber-cyan/50 font-mono transition-colors" placeholder="e.g., Captain John Doe">
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="block font-mono text-xs text-cyber-dimText uppercase">SECURE BROADCAST EMAIL</label>
+                                    <input type="email" id="sender-email" required class="w-full bg-cyber-dark/80 border border-white/10 rounded px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyber-cyan/50 font-mono transition-colors" placeholder="e.g., enterprise@corp.com">
+                                </div>
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="block font-mono text-xs text-cyber-dimText uppercase">TRANSMISSION SUBJECT</label>
+                                <input type="text" id="sender-subject" required class="w-full bg-cyber-dark/80 border border-white/10 rounded px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyber-cyan/50 font-mono transition-colors" placeholder="e.g., SOC Incident Operations / Hiring Call">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="block font-mono text-xs text-cyber-dimText uppercase">ENCRYPTED ENVELOPE PAYLOAD</label>
+                                <textarea id="sender-message" required rows="4" class="w-full bg-cyber-dark/80 border border-white/10 rounded px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyber-cyan/50 font-mono transition-colors" placeholder="Compose transaction parameters here..."></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-3.5 rounded bg-cyber-cyan text-cyber-dark font-mono text-xs font-bold uppercase tracking-wider hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>BROADCAST COMMUNICATIONS PACKET</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section (Final Systems Report) -->
+    <footer class="bg-cyber-dark border-t border-white/5 relative z-10 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-center md:text-left">
+                
+                <!-- Left Details Info -->
+                <div class="flex flex-col space-y-2">
+                    <span class="font-mono text-sm font-bold tracking-wider text-white">VENKATESH KOLLURI</span>
+                    <span class="text-xs text-cyber-dimText">Cybersecurity & SOC Operations Analyst. All digital defenses configured securely.</span>
+                </div>
+
+                <!-- Center Security Status Box -->
+                <div class="font-mono text-xs p-3 rounded bg-white/5 border border-white/5 text-cyber-green flex items-center space-x-2">
+                    <i class="fa-solid fa-terminal animate-pulse"></i>
+                    <span>TELEMETRY FEED: 200 OK</span>
+                </div>
+
+                <!-- Right Quick Social Grid -->
+                <div class="flex space-x-6 text-xl">
+                    <a href="https://www.linkedin.com/in/venkateshkolluri/" target="_blank" class="text-cyber-dimText hover:text-cyber-cyan transition-colors">
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:venkateshkolluri012@gmail.com" class="text-cyber-dimText hover:text-cyber-cyan transition-colors">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+                    <a href="tel:+917799403055" class="text-cyber-dimText hover:text-cyber-cyan transition-colors">
+                        <i class="fa-solid fa-phone"></i>
+                    </a>
+                </div>
+
+            </div>
+            
+            <div class="border-t border-white/5 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-cyber-dimText space-y-4 sm:space-y-0 font-mono">
+                <p>&copy; 2026 Venkatesh Kolluri. Designed & Engineered Securely.</p>
+                <div class="flex space-x-4">
+                    <a href="#hero" class="hover:text-cyber-cyan transition-colors">BACK_TO_TOP</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Action button -->
+    <button id="scroll-top-btn" class="hidden fixed bottom-6 right-6 z-40 w-11 h-11 rounded bg-cyber-cyan text-cyber-dark flex items-center justify-center hover:bg-white hover:scale-110 active:scale-100 transition-all shadow-[0_0_15px_rgba(0,240,255,0.4)]">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Unified Operations Core Javascript Control Script -->
+    <script>
+        // Global Preloader and Terminal references
+        const preloader = document.getElementById('preloader');
+        const preloaderBar = document.getElementById('preloader-bar');
+        const preloaderLogs = document.getElementById('preloader-logs');
+        const typingTextElement = document.getElementById('typing-text');
+        const terminalScreen = document.getElementById('terminal-screen');
+        const terminalHistory = document.getElementById('terminal-history');
+        const terminalInput = document.getElementById('terminal-input');
+
+        // Dynamic Role Titles matrix lists
+        const roles = [
+            'Cybersecurity Analyst.',
+            'SOC Analyst.',
+            'Ethical Hacking Specialist.',
+            'Application Security Enthusiast.',
+            'Threat Hunter.'
+        ];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        // Custom Preloader dynamic simulation sequence logs list
+        const bootLogs = [
+            'SYSTEM: Initializing interface core parameters...',
+            'OK: Resolving security modules database integration...',
+            'OK: Mapping port telemetry routes...',
+            'SECURITY: Setting up Defender sandbox protocols...',
+            'STATUS: Boot decrypted successfully.',
+            'SYSTEM: Entering portfolio command center.'
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Run preloader timeline boot sequences
+            runPreloaderSequence();
+            
+            // Start Canvas Interactive Physics Background
+            initCanvasParticles();
+            
+            // Start Roles Typewriter loop
+            setTimeout(handleTypewriter, 1000);
+            
+            // Start custom cursor spotlight tracker
+            initSpotlightGlow();
+            
+            // Initializing stats counters intersections
+            initStatsTrigger();
+        });
+
+        // Preloader Dynamic Boot Sequence loader logic
+        function runPreloaderSequence() {
+            let logIndex = 0;
+            let currentWidth = 0;
+            
+            const logInterval = setInterval(() => {
+                if (logIndex < bootLogs.length) {
+                    const log = document.createElement('p');
+                    log.className = logIndex % 2 === 0 ? 'text-cyber-cyan' : 'text-cyber-green';
+                    log.innerText = `> ${bootLogs[logIndex]}`;
+                    preloaderLogs.appendChild(log);
+                    preloaderLogs.scrollTop = preloaderLogs.scrollHeight;
+                    logIndex++;
+                }
+            }, 300);
+
+            const progressInterval = setInterval(() => {
+                currentWidth += Math.random() * 15;
+                if (currentWidth >= 100) {
+                    currentWidth = 100;
+                    clearInterval(progressInterval);
+                    clearInterval(logInterval);
+                    
+                    // Final transition preloader fade out
+                    setTimeout(() => {
+                        preloader.style.opacity = '0';
+                        setTimeout(() => {
+                            preloader.style.visibility = 'hidden';
+                        }, 800);
+                    }, 500);
+                }
+                preloaderBar.style.width = `${currentWidth}%`;
+            }, 100);
+        }
+
+        // Typewriter dynamic logic Loop
+        function handleTypewriter() {
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                charIndex--;
+            } else {
+                charIndex++;
+            }
+
+            typingTextElement.innerText = currentRole.substring(0, charIndex);
+
+            let typingSpeed = isDeleting ? 40 : 100;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                typingSpeed = 2000; // Pause at completion point
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typingSpeed = 500; // Pause before rewriting
+            }
+
+            setTimeout(handleTypewriter, typingSpeed);
+        }
+
+        // High performance custom Canvas particles
+        let canvas, ctx;
+        let particles = [];
+        const particleCount = 80;
+
+        function initCanvasParticles() {
+            canvas = document.getElementById('canvas-particles');
+            ctx = canvas.getContext('2d');
+
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // Populate array with dynamic floating objects
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    radius: Math.random() * 2 + 1
+                });
+            }
+
+            // Start custom canvas physics frame updates loop
+            requestAnimationFrame(updateParticlesFrame);
+        }
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function updateParticlesFrame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(0, 240, 255, 0.5)';
+            ctx.strokeStyle = 'rgba(0, 240, 255, 0.05)';
+
+            // Draw and update vectors position positions
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+
+                // Screen bounce boundaries
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Compute interactive grid connections distance
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+
+                    if (dist < 120) {
+                        ctx.lineWidth = 1 - (dist / 120);
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(updateParticlesFrame);
+        }
+
+        // Mouse Tracking spotlight follower
+        const cursorGlow = document.getElementById('cursor-glow');
+        function initSpotlightGlow() {
+            document.addEventListener('mousemove', (e) => {
+                cursorGlow.style.left = `${e.clientX}px`;
+                cursorGlow.style.top = `${e.clientY}px`;
+            });
+        }
+
+        // Interactive Command Shell System terminal execution script
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                executeTerminalCommand();
+            }
+        });
+
+        // Built-in automated simulation sequences commands list mapping
+        function executeTerminalCommand() {
+            const rawCommand = terminalInput.value.trim();
+            terminalInput.value = '';
+            
+            if (!rawCommand) return;
+
+            // Output command echo to console logs
+            const cmdEcho = document.createElement('div');
+            cmdEcho.className = 'mt-3 font-semibold text-white';
+            cmdEcho.innerText = `user@v-kolluri:~$ ${rawCommand}`;
+            terminalHistory.appendChild(cmdEcho);
+
+            const response = document.createElement('div');
+            response.className = 'mt-1 text-cyber-dimText pl-2 border-l border-cyber-cyan/30';
+
+            const cmd = rawCommand.toLowerCase();
+
+            switch (cmd) {
+                case 'help':
+                    response.innerHTML = `
+                        <p class="text-cyber-cyan">Available command nodes index:</p>
+                        <p> - <span class="text-white">about</span> : Brief biography telemetry parameters.</p>
+                        <p> - <span class="text-white">skills</span> : Summary lists of operational weapons.</p>
+                        <p> - <span class="text-white">nmap</span> : Simulate live active target scanner payload.</p>
+                        <p> - <span class="text-white">sentinel</span> : View customized diagnostic sentinel queries.</p>
+                        <p> - <span class="text-white">clear</span> : Reset screen log visualization.</p>
+                    `;
+                    break;
+                case 'about':
+                    response.innerHTML = `
+                        <p>Target Name: <span class="text-white font-bold">Venkatesh Kolluri</span></p>
+                        <p>Focus Areas: Application Vulnerability Assessor, Incident Responder, Threat Defense Operations.</p>
+                        <p>Active Contacts Base: <span class="text-cyber-green">venkateshkolluri012@gmail.com</span></p>
+                    `;
+                    break;
+                case 'skills':
+                    response.innerHTML = `
+                        <p class="text-cyber-cyan">Main Core Weapons Cataloged:</p>
+                        <p>> Vulnerability Management (Burp Suite Pro, Nmap Scanner)</p>
+                        <p>> Cloud Security Analytics (Microsoft Defender, Sentinel SIEM, KQL queries)</p>
+                    `;
+                    break;
+                case 'clear':
+                    terminalHistory.innerHTML = '';
+                    response.innerHTML = '<p class="text-white/40">Terminal logs cleared.</p>';
+                    break;
+                case 'nmap':
+                    response.innerHTML = '<p class="animate-pulse text-yellow-500">> Executing SYN Port Scan telemetry... Please wait...</p>';
+                    setTimeout(() => {
+                        response.innerHTML += `
+                            <p class="text-cyber-green mt-1">Nmap scan report for portal.venkatesh.sec (127.0.0.1)</p>
+                            <p>Host is up (0.0021s latency).</p>
+                            <p>PORT     STATE SERVICE</p>
+                            <p>80/tcp   <span class="text-cyber-magenta">OPEN</span>  http (Unencrypted Gateway)</p>
+                            <p>443/tcp  OPEN  https (TLS Layered)</p>
+                            <p class="text-cyber-magenta mt-1">> VULNERABILITY_FOUND: Host utilizes outdated service headers.</p>
+                        `;
+                        terminalScreen.scrollTop = terminalScreen.scrollHeight;
+                    }, 1200);
+                    break;
+                case 'sentinel':
+                    response.innerHTML = `
+                        <p class="text-cyber-green">> Querying Microsoft Sentinel telemetry metrics log DB (KQL):</p>
+                        <p class="font-mono text-white/70 bg-black/40 p-1 rounded my-1 text-[11px]">
+                            SecurityEvent | where EventID == 4625 | summarize count() by TargetAccount, IpAddress
+                        </p>
+                        <p>Analyzing intrusion vectors... <span class="text-cyber-green font-bold">Status: Isolated</span></p>
+                    `;
+                    break;
+                default:
+                    response.innerHTML = `<p class="text-cyber-magenta">Error: Unknown execution command "${rawCommand}". Type "help" for payload listings.</p>`;
+            }
+
+            terminalHistory.appendChild(response);
+            // Push shell scroll positions downwards
+            setTimeout(() => {
+                terminalScreen.scrollTop = terminalScreen.scrollHeight;
+            }, 50);
+        }
+
+        // Highlight active navbar items during vertical page scrolls
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', () => {
+            let currentSec = 'hero';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (pageYOffset >= sectionTop) {
+                    currentSec = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-cyber-cyan');
+                link.classList.add('text-cyber-dimText');
+                if (link.getAttribute('data-sec') === currentSec) {
+                    link.classList.remove('text-cyber-dimText');
+                    link.classList.add('text-cyber-cyan');
+                }
+            });
+
+            // Dynamically show or hide the floating "Scroll To Top" button
+            const scrollTopBtn = document.getElementById('scroll-top-btn');
+            if (pageYOffset > 500) {
+                scrollTopBtn.classList.remove('hidden');
+            } else {
+                scrollTopBtn.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('scroll-top-btn').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Mobile drawer toggles
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            toggleMenu();
+        });
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.className = 'fa-solid fa-bars-staggered text-xl';
+            } else {
+                menuIcon.className = 'fa-solid fa-xmark text-xl text-cyber-cyan';
+            }
+        }
+
+        // Numeric progress stats counters incremental speed triggers
+        function initStatsTrigger() {
+            const statElements = [
+                document.getElementById('counter-projects'),
+                document.getElementById('counter-vulnerabilities'),
+                document.getElementById('counter-bugs'),
+                document.getElementById('counter-hours')
+            ];
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.getAttribute('data-target'));
+                        runCounterIncrement(entry.target, target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            statElements.forEach(el => observer.observe(el));
+        }
+
+        function runCounterIncrement(element, targetValue) {
+            let current = 0;
+            const speed = Math.ceil(targetValue / 40); // Standardize rates
+            
+            const timer = setInterval(() => {
+                current += speed;
+                if (current >= targetValue) {
+                    element.innerText = targetValue + '+';
+                    clearInterval(timer);
+                } else {
+                    element.innerText = current;
+                }
+            }, 30);
+        }
+
+        // Simulated Secure Packet Submission Encryption triggers
+        function transmitPacket(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('sender-name').value;
+            const email = document.getElementById('sender-email').value;
+            const subject = document.getElementById('sender-subject').value;
+            const message = document.getElementById('sender-message').value;
+
+            const loaderOverlay = document.getElementById('contact-loading-overlay');
+            const successOverlay = document.getElementById('contact-success-overlay');
+            const transmissionLog = document.getElementById('transmission-log');
+
+            loaderOverlay.classList.remove('hidden');
+
+            // Sequence simulation
+            setTimeout(() => {
+                transmissionLog.innerText = '> Packing telemetry blocks...';
+                setTimeout(() => {
+                    transmissionLog.innerText = '> Resolving target signature hashes...';
+                    setTimeout(() => {
+                        loaderOverlay.classList.add('hidden');
+                        successOverlay.classList.remove('hidden');
+                        document.getElementById('secure-contact-form').reset();
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }
+
+        function resetContactGateway() {
+            document.getElementById('contact-success-overlay').classList.add('hidden');
+        }
+
+        // Project Simulated Deploy Lab triggers
+        function simulateDeployLab() {
+            // Echo deployment command direct inside interactive terminal widget
+            terminalHistory.innerHTML = '';
+            
+            const deployMsg = document.createElement('div');
+            deployMsg.className = 'mt-3 font-semibold text-white animate-pulse';
+            deployMsg.innerText = 'user@v-kolluri:~$ deploy --target lab-environment-v1';
+            terminalHistory.appendChild(deployMsg);
+
+            const response = document.createElement('div');
+            response.className = 'mt-2 pl-2 border-l border-cyber-cyan/30 text-cyber-cyan font-mono text-xs';
+            response.innerHTML = `
+                <p>> Spinning up sandbox server instances...</p>
+                <p>> Launching simulated Active Directory forest network topologies...</p>
+                <p>> Initializing CTF monitoring telemetry agents...</p>
+                <p class="text-cyber-green font-bold mt-2">> DEPLOY COMPLETE: Vulnerable lab active at local host gateway.</p>
+            `;
+            terminalHistory.appendChild(response);
+            
+            // Auto smooth scroll view upward to Hero command deck widget
+            document.getElementById('hero').scrollIntoView({ behavior: 'smooth' });
+            
+            setTimeout(() => {
+                terminalScreen.scrollTop = terminalScreen.scrollHeight;
+            }, 400);
+        }
+
+        // Functional simulated Resume download interface warning sequence
+        function downloadResume() {
+            const terminalScreen = document.getElementById('terminal-screen');
+            const log = document.createElement('div');
+            log.className = 'mt-3 font-mono text-xs text-cyber-cyan';
+            log.innerHTML = `
+                <p class="text-white">user@v-kolluri:~$ fetch venkatesh_kolluri_resume.pdf</p>
+                <p class="text-cyber-green">> Decrypting secure package...</p>
+                <p class="text-cyber-green">> Downloading payload file... (Size: 214KB)</p>
+            `;
+            terminalHistory.appendChild(log);
+            terminalScreen.scrollTop = terminalScreen.scrollHeight;
+
+            // Smooth scroll target up to terminal section to watch simulated actions trigger
+            document.getElementById('hero').scrollIntoView({ behavior: 'smooth' });
+
+            // Create a temporary mock text file to trigger browser downloader
+            const textContent = "Venkatesh Kolluri - Cybersecurity Analyst & SOC Expert Resume Document Payload Placeholder.";
+            const blob = new Blob([textContent], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "venkatesh_kolluri_resume.pdf";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
